@@ -16,9 +16,23 @@ class App extends Component {
     return await response.json();
   }
 
+  getTopSixObjects = async () => {
+    const objectIds = await this.getObjects()
+    const topSixObjects = await objectIds.objectIDs.slice(0, 6)
+    return await topSixObjects
+   }
+
+   getObjectDetails = async () => {
+     const objectsMapped = []
+    const objects = await this.getTopSixObjects()
+    const objectDetails = await objects.forEach(object => {
+      return fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${object}`).then(data => console.log(data))
+     })
+     console.log(await objectDetails)
+   }
 
   componentDidMount() {
-    this.getImages().then(data => this.setState({objects: data.objectIDs.slice(0, 6)}))
+    this.getObjectDetails()
     
   }
 
