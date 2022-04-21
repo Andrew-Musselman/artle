@@ -1,11 +1,11 @@
 import React, { useState }from 'react';
 
-const GuessForm = () => {
+const GuessForm = (props) => {
     const [guess, setGuess] = useState('')
 
     const submitGuess = (event) => {
-        event.preventDefault
-        const newGuess = guess
+        event.preventDefault()
+        props.checkGuess(guess)
     }
 
     return (
@@ -17,7 +17,9 @@ const GuessForm = () => {
                 value={guess}
                 onChange={event => setGuess(event.target.value)}
                 />
-            <button>Guess</button>
+            <button onClick={submitGuess}>Guess</button>
         </form>
     )
 }
+
+export default GuessForm;
