@@ -40,6 +40,15 @@ const App = () => {
      console.log (images)
    }
 
+   const checkGuess = (guess) => {
+    const artistNames =  artistName.split(' ')
+     if( guess === artistName || guess === artistNames[0] || guess === artistNames[1]) {
+       console.log('correct!')
+     } else {
+       console.log('WRONG!')
+     }
+   }
+
   useEffect(() => {
     getObjectDetails()
   }, [])
