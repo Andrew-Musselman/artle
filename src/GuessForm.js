@@ -1,11 +1,12 @@
 import React, { useState }from 'react';
 
-const GuessForm = (props) => {
+const GuessForm = ({ checkGuess }) => {
     const [guess, setGuess] = useState('')
 
     const submitGuess = (event) => {
         event.preventDefault()
-        props.checkGuess(guess)
+       checkGuess(guess)
+        setGuess('')
     }
 
     return (
