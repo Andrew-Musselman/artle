@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Image from './Image';
-import './ImageCarousel.css'
+import './ImageCarousel.css';
 
 const ImageCarousel = ({ images, titles }) => {
 
@@ -8,9 +8,7 @@ const ImageCarousel = ({ images, titles }) => {
         return <Image image={image}  />
     })
 
-    const [index, setIndex] = useState(0)
-
-    // setIndex((prevIndex) => prevIndex === imagesOne.length -1 ? 0 : prevIndex +1)
+    const [index, setIndex] = useState(0);
 
 
     return (
