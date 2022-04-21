@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ImageCarousel from './ImageCarousel';
+import GuessForm from './GuessForm';
 import getData from './apiCall';
 import './App.css';
 
@@ -42,7 +43,7 @@ const App = () => {
 
    const checkGuess = (guess) => {
     const artistNames =  artistName.split(' ')
-     if( guess === artistName || guess === artistNames[0] || guess === artistNames[1]) {
+     if( guess == artistName || guess == artistNames[0] || guess == artistNames[1]) {
        console.log('correct!')
      } else {
        console.log('WRONG!')
@@ -58,6 +59,7 @@ const App = () => {
     return (
       <div className='App'>
         <ImageCarousel images={images} titles={titles} />
+        <GuessForm checkGuess={checkGuess} /> 
       </div>
     );
   
