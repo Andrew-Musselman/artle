@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Image from './Image';
+import ImageCarousel from './ImageCarousel';
 import getData from './apiCall';
 import './App.css';
 
@@ -48,7 +48,7 @@ const App = () => {
   
     return (
       <div className='App'>
-        <Image image={images[0]} alt={images[0]} />
+        <ImageCarousel images={images} titles={titles} />
       </div>
     );
   
