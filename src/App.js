@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Image from './Image';
 import getData from './apiCall';
 import './App.css';
 
@@ -6,6 +7,7 @@ const App = () => {
   const [images, setImages] = useState([]);
   const [artistName, setArtistName] = useState('');
   const [artistBio, setArtistBio] = useState('');
+  const [titles, setTitles] = useState([]);
 
 
   const getObjects = async () => {
@@ -28,29 +30,26 @@ const App = () => {
       objectsMapped.push(singleObjectDetails)
     }
     const paintings = objectsMapped.map(object => object.primaryImage)
+    const names = objectsMapped.map(object => object.title)
     const artist = objectsMapped[0].artistDisplayName
     const bio = objectsMapped[0].artistDisplayBio
     setImages(paintings)
+    setTitles(names)
     setArtistName(artist)
     setArtistBio(bio)
      console.log (images)
    }
 
-  //  const setStates = async () => {
-  //    await getObjectDetails()
-
-  //  }
   useEffect(() => {
     getObjectDetails()
-    
   }, [])
 
   
   
     return (
-      <>
-        
-      </>
+      <div className='App'>
+        <Image image={images[0]} alt={images[0]} />
+      </div>
     );
   
 }
