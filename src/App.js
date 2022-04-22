@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ImageCarousel from './ImageCarousel';
 import GuessForm from './GuessForm';
+import CorrectScreen from './CorrectScreen';
 import getData from './apiCall';
 import './App.css';
 
