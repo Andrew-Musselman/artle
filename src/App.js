@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ImageCarousel from './ImageCarousel';
+import GameScreen from './GameScreen';
 import GuessForm from './GuessForm';
 import CorrectScreen from './CorrectScreen';
 import getData from './apiCall';
@@ -67,7 +67,8 @@ const App = () => {
     return (
       <div className='App'>
         {!correctGuess ? 
-        <ImageCarousel images={images} titles={titles} /> : <CorrectScreen artistName={artistName} artistBio={artistBio} images={images}/>}
+        <GameScreen images={images} /> : 
+        <CorrectScreen artistName={artistName} artistBio={artistBio} images={images}/>}
         <GuessForm checkGuess={checkGuess} /> 
       </div>
     );
