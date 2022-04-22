@@ -12,8 +12,6 @@ const ImageCarousel = ({ images, titles }) => {
 
 
     return (
-        <div className='images'>
-            <h2>Guess the Artist</h2>
           <div className='slide-show'>
             <div className='slide-show-slider' style={{ transform:'translate(' + (-index * 100) + '%, 0)'}}>
                 {imagesOne.map((image, index) => (
@@ -29,7 +27,6 @@ const ImageCarousel = ({ images, titles }) => {
               ))}
             </div>
           </div>
-        </div>
       )
 }
 
