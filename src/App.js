@@ -13,6 +13,8 @@ const App = () => {
   const [correctGuess, setCorrectGuess] = useState(false);
   const [guessCount, setGuessCount] = useState(0);
   const [guesses, setGuesses] = useState([]);
+  const [gameOver, setGameOver] = useState(false);
+  const [viewableImages, setViewableImages] = useState([]);
 
 
   const getObjects = async () => {
@@ -38,16 +40,17 @@ const App = () => {
     const names = objectsMapped.map(object => object.title)
     const artist = objectsMapped[0].artistDisplayName
     const bio = objectsMapped[0].artistDisplayBio
-    setImages(paintings)
-    setTitles(names)
-    setArtistName(artist)
-    setArtistBio(bio)
-     console.log (images)
+     setImages(paintings)
+     setTitles(names)
+     setArtistName(artist)
+     setArtistBio(bio)
+     setViewableImages([...viewableImages, paintings[0]])
+    console.log (images)
+    console.log(viewableImages)
    }
 
    const checkGuess = (guess) => {
     const artistNames =  artistName.split(' ')
-    setGuessCount((prevCount) => prevCount + 1)
     setGuesses([...guesses, guess])
      if( guess === artistName || guess === artistNames[0] || guess === artistNames[1] || 
         guess === artistName.toLowerCase() || guess === artistNames[0].toLowerCase() || guess === artistNames[1].toLowerCase()) {
@@ -56,6 +59,16 @@ const App = () => {
      } else {
        console.log('WRONG!')
      }
+   }
+
+   const playGame = (guess) => {
+    setGuessCount((prevCount) => prevCount + 1)
+     if (guessCount <= 5 && !correctGuess ){
+       checkGuess(guess)
+       setViewableImages([...viewableImages, images[guessCount + 1]])
+     } else if (guessCount >= 6 && !correctGuess) {
+      setGameOver(true)
+     } 
    }
 
   useEffect(() => {
@@ -67,9 +80,9 @@ const App = () => {
     return (
       <div className='App'>
         {!correctGuess ? 
-        <GameScreen images={images} /> : 
+        <GameScreen images={viewableImages} /> : 
         <CorrectScreen artistName={artistName} artistBio={artistBio} images={images}/>}
-        <GuessForm checkGuess={checkGuess} /> 
+        <GuessForm playGame={playGame} /> 
       </div>
     );
   
