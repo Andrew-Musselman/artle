@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import ImageCarousel from './ImageCarousel';
+import GameScreen from './GameScreen';
+import GuessForm from './GuessForm';
+import CorrectScreen from './CorrectScreen';
 import getData from './apiCall';
 import './App.css';
 
@@ -8,6 +10,9 @@ const App = () => {
   const [artistName, setArtistName] = useState('');
   const [artistBio, setArtistBio] = useState('');
   const [titles, setTitles] = useState([]);
+  const [correctGuess, setCorrectGuess] = useState(false);
+  const [guessCount, setGuessCount] = useState(0);
+  const [guesses, setGuesses] = useState([]);
 
 
   const getObjects = async () => {
@@ -40,6 +45,19 @@ const App = () => {
      console.log (images)
    }
 
+   const checkGuess = (guess) => {
+    const artistNames =  artistName.split(' ')
+    setGuessCount((prevCount) => prevCount + 1)
+    setGuesses([...guesses, guess])
+     if( guess === artistName || guess === artistNames[0] || guess === artistNames[1] || 
+        guess === artistName.toLowerCase() || guess === artistNames[0].toLowerCase() || guess === artistNames[1].toLowerCase()) {
+       setCorrectGuess(true)
+       console.log('correct!')
+     } else {
+       console.log('WRONG!')
+     }
+   }
+
   useEffect(() => {
     getObjectDetails()
   }, [])
@@ -48,7 +66,10 @@ const App = () => {
   
     return (
       <div className='App'>
-        <ImageCarousel images={images} titles={titles} />
+        {!correctGuess ? 
+        <GameScreen images={images} /> : 
+        <CorrectScreen artistName={artistName} artistBio={artistBio} images={images}/>}
+        <GuessForm checkGuess={checkGuess} /> 
       </div>
     );
   
