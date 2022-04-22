@@ -62,13 +62,16 @@ const App = () => {
    }
 
    const playGame = (guess) => {
-    setGuessCount((prevCount) => prevCount + 1)
-     if (guessCount <= 5 && !correctGuess ){
+     console.log(guessCount)
+     if (guessCount <= 4 && !correctGuess){
        checkGuess(guess)
-       setViewableImages([...viewableImages, images[guessCount + 1]])
-     } else if (guessCount >= 6 && !correctGuess) {
+       setGuessCount((prevCount) => prevCount + 1)
+       setViewableImages([...viewableImages, images[guessCount +1]])
+     } else if (guessCount === 5 && !correctGuess) {
+      checkGuess(guess)
+      setGuessCount((prevCount) => prevCount + 1)
       setGameOver(true)
-     } 
+     }
    }
 
   useEffect(() => {
