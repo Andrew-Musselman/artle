@@ -9,7 +9,9 @@ const App = () => {
   const [artistName, setArtistName] = useState('');
   const [artistBio, setArtistBio] = useState('');
   const [titles, setTitles] = useState([]);
-  const [correctGuess, setCorrectGuess] = useState(false)
+  const [correctGuess, setCorrectGuess] = useState(false);
+  const [guessCount, setGuessCount] = useState(0);
+  const [guesses, setGuesses] = useState([]);
 
 
   const getObjects = async () => {
@@ -44,7 +46,10 @@ const App = () => {
 
    const checkGuess = (guess) => {
     const artistNames =  artistName.split(' ')
-     if( guess == artistName || guess == artistNames[0] || guess == artistNames[1]) {
+    setGuessCount((prevCount) => prevCount + 1)
+    setGuesses([...guesses, guess])
+     if( guess === artistName || guess === artistNames[0] || guess === artistNames[1] || 
+        guess === artistName.toLowerCase() || guess === artistNames[0].toLowerCase() || guess === artistNames[1].toLowerCase()) {
        setCorrectGuess(true)
        console.log('correct!')
      } else {
