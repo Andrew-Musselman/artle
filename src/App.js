@@ -65,7 +65,7 @@ const App = () => {
   
     return (
       <div className='App'>
-        <ImageCarousel images={images} titles={titles} />
+        {!correctGuess ? <ImageCarousel images={images} titles={titles} /> : <CorrectScreen />}
         <GuessForm checkGuess={checkGuess} /> 
       </div>
     );
