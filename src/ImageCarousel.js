@@ -10,7 +10,6 @@ const ImageCarousel = ({ images, titles }) => {
 
     const [index, setIndex] = useState(0);
 
-
     return (
           <div className='slide-show'>
             <div className='slide-show-slider' style={{ transform:'translate(' + (-index * 100) + '%, 0)'}}>
