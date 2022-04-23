@@ -45,8 +45,6 @@ const App = () => {
      setArtistName(artist)
      setArtistBio(bio)
      setViewableImages([...viewableImages, paintings[0]])
-    console.log (images)
-    console.log(viewableImages)
    }
 
    const checkGuess = (guess) => {
@@ -56,14 +54,12 @@ const App = () => {
         guess === artistName.toLowerCase() || guess === artistNames[0].toLowerCase() || guess === artistNames[1].toLowerCase()) {
        setCorrectGuess(true)
        setGameOver(true)
-       console.log('correct!')
      } else {
-       console.log('WRONG!')
+      return 
      }
    }
 
    const playGame = (guess) => {
-     console.log(guessCount)
      if (guessCount <= 4 && !correctGuess){
        checkGuess(guess)
        setGuessCount((prevCount) => prevCount + 1)
