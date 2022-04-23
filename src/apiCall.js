@@ -8,7 +8,6 @@ const checkResponse = (res) => {
     if(!res.ok) {
         throw new Error('There\'s a snake in my boot')
     } else {
-        console.log('hello')
         return res.json()
     }
 }

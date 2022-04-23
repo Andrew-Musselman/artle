@@ -1,11 +1,11 @@
 import React, { useState }from 'react';
 
-const GuessForm = ({ checkGuess }) => {
+const GuessForm = ({ playGame }) => {
     const [guess, setGuess] = useState('')
 
     const submitGuess = (event) => {
         event.preventDefault()
-       checkGuess(guess)
+       playGame(guess)
         setGuess('')
     }
 

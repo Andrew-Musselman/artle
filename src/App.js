@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import GameScreen from './GameScreen';
 import GuessForm from './GuessForm';
-import CorrectScreen from './CorrectScreen';
+import EndGameScreen from './EndGameScreen';
 import getData from './apiCall';
 import './App.css';
 
@@ -13,6 +13,8 @@ const App = () => {
   const [correctGuess, setCorrectGuess] = useState(false);
   const [guessCount, setGuessCount] = useState(0);
   const [guesses, setGuesses] = useState([]);
+  const [gameOver, setGameOver] = useState(false);
+  const [viewableImages, setViewableImages] = useState([]);
 
 
   const getObjects = async () => {
@@ -38,23 +40,34 @@ const App = () => {
     const names = objectsMapped.map(object => object.title)
     const artist = objectsMapped[0].artistDisplayName
     const bio = objectsMapped[0].artistDisplayBio
-    setImages(paintings)
-    setTitles(names)
-    setArtistName(artist)
-    setArtistBio(bio)
-     console.log (images)
+     setImages(paintings)
+     setTitles(names)
+     setArtistName(artist)
+     setArtistBio(bio)
+     setViewableImages([...viewableImages, paintings[0]])
    }
 
    const checkGuess = (guess) => {
     const artistNames =  artistName.split(' ')
-    setGuessCount((prevCount) => prevCount + 1)
     setGuesses([...guesses, guess])
      if( guess === artistName || guess === artistNames[0] || guess === artistNames[1] || 
         guess === artistName.toLowerCase() || guess === artistNames[0].toLowerCase() || guess === artistNames[1].toLowerCase()) {
        setCorrectGuess(true)
-       console.log('correct!')
+       setGameOver(true)
      } else {
-       console.log('WRONG!')
+      return 
+     }
+   }
+
+   const playGame = (guess) => {
+     if (guessCount <= 4 && !correctGuess){
+       checkGuess(guess)
+       setGuessCount((prevCount) => prevCount + 1)
+       setViewableImages([...viewableImages, images[guessCount +1]])
+     } else if (guessCount === 5 && !correctGuess) {
+      checkGuess(guess)
+      setGuessCount((prevCount) => prevCount + 1)
+      setGameOver(true)
      }
    }
 
@@ -66,10 +79,9 @@ const App = () => {
   
     return (
       <div className='App'>
-        {!correctGuess ? 
-        <GameScreen images={images} /> : 
-        <CorrectScreen artistName={artistName} artistBio={artistBio} images={images}/>}
-        <GuessForm checkGuess={checkGuess} /> 
+        {!correctGuess && !gameOver && <GameScreen images={viewableImages} /> } 
+        {gameOver && <EndGameScreen correctGuess={correctGuess} artistName={artistName} artistBio={artistBio} images={images}/>}
+        <GuessForm playGame={playGame} /> 
       </div>
     );
   
