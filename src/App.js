@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import GameScreen from './GameScreen';
 import GuessForm from './GuessForm';
-import CorrectScreen from './CorrectScreen';
+import EndGameScreen from './EndGameScreen';
 import getData from './apiCall';
 import './App.css';
 
@@ -84,7 +84,7 @@ const App = () => {
     return (
       <div className='App'>
         {!correctGuess && !gameOver && <GameScreen images={viewableImages} /> } 
-        {correctGuess && gameOver && <CorrectScreen artistName={artistName} artistBio={artistBio} images={images}/>}
+        {gameOver && <EndGameScreen correctGuess={correctGuess} artistName={artistName} artistBio={artistBio} images={images}/>}
         <GuessForm playGame={playGame} /> 
       </div>
     );
