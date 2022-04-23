@@ -55,6 +55,7 @@ const App = () => {
      if( guess === artistName || guess === artistNames[0] || guess === artistNames[1] || 
         guess === artistName.toLowerCase() || guess === artistNames[0].toLowerCase() || guess === artistNames[1].toLowerCase()) {
        setCorrectGuess(true)
+       setGameOver(true)
        console.log('correct!')
      } else {
        console.log('WRONG!')
@@ -82,9 +83,8 @@ const App = () => {
   
     return (
       <div className='App'>
-        {!correctGuess ? 
-        <GameScreen images={viewableImages} /> : 
-        <CorrectScreen artistName={artistName} artistBio={artistBio} images={images}/>}
+        {!correctGuess && !gameOver && <GameScreen images={viewableImages} /> } 
+        {correctGuess && gameOver && <CorrectScreen artistName={artistName} artistBio={artistBio} images={images}/>}
         <GuessForm playGame={playGame} /> 
       </div>
     );
