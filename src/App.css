@@ -4,3 +4,22 @@
   align-items: center;
   text-align: center;
 }
+
+button {
+  background-color: rgb(64, 153, 153);
+  margin: 1em;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  box-shadow: 0 0 20px #c4c4c4;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-position: right center;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
