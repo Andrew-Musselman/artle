@@ -155,6 +155,28 @@ describe('Main', () => {
         .get('button').click()
         .get('h2').should('contain', 'Congrats, you got it')
     })
+    it('As a user, I should be able to click the play agian image to start again', () => {
+        cy.intercept('GET', 'https://collectionapi.metmuseum.org/public/collection/v1/search*', {
+            statusCode: 200,
+            fixture: 'objectIds.json'
+        })
+        cy.intercept('GET','https://collectionapi.metmuseum.org/public/collection/v1/objects/*', {
+            statusCode: 200,
+            fixture: 'objects'
+        })
+        cy.visit('http://localhost:3000/')
+        .get('input[name="guess"]')
+        .type('Renoir')
+        .get('button').click()
+        .get('h2').should('contain', 'Congrats, you got it')
+        cy.visit('http://localhost:3000/')
+        .get('input[name="guess"]')
+        .type('Auguste Renoir')
+        .get('button').click()
+        .get('h2').should('contain', 'Congrats, you got it')
+        .get('button[class="play-again"]').click()
+        .get('h2').should('contain', 'Guess the Artist')
+    })
     it('As a user, I should see an error message if there is an error with the network request', () => {
         cy.intercept('GET', 'https://collectionapi.metmuseum.org/public/collection/v1/search*', {
             statusCode: 200,
