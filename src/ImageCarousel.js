@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Image from './Image';
+import PropTypes, { string } from 'prop-types'
 import './ImageCarousel.css';
 
 const ImageCarousel = ({ images, titles }) => {
@@ -34,3 +35,8 @@ ImageCarousel.defaultProps = {
 }
 
 export default ImageCarousel;
+
+ImageCarousel.propTypes = {
+  images: PropTypes.arrayOf(string).isRequired,
+  titles: PropTypes.arrayOf(string).isRequired
+}
