@@ -12,7 +12,7 @@ const EndGameScreen = ({ correctGuess, artistName, artistBio, images, titles, ne
             <EndGameMessage correctGuess={ correctGuess }/>
             <ImageCarousel images={images} titles={titles}/>
             <ArtistCard artistName={artistName} artistBio={artistBio} />
-            <button onClick={() => newGame()}>Play Again</button>
+            <button className='play-again' onClick={() => newGame()}>Play Again</button>
         </>
 
     )
