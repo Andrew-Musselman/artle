@@ -1,7 +1,7 @@
 import React from 'react';
-import './ArtistCard.css';
+import PropTypes from 'prop-types';
 
-const ArtistCard = ({artistName, artistBio}) => {
+const ArtistCard = ({artistName, artistBio }) => {
     return (
         <div className='artist-card'>
             <h3>{artistName}</h3>
@@ -11,3 +11,8 @@ const ArtistCard = ({artistName, artistBio}) => {
 }
 
 export default ArtistCard;
+
+ArtistCard.propTypes = {
+    artistName: PropTypes.string.isRequired,
+    artistBio: PropTypes.string.isRequired
+}
