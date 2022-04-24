@@ -79,7 +79,7 @@ const App = () => {
     }
     
   }
-const setInitialStates = async () => {
+const newGame = async () => {
   let paintings;
   let names;
   let artist;
@@ -94,7 +94,7 @@ const setInitialStates = async () => {
     setTitles(names)
     setArtistName(artist)
     setArtistBio(bio)
-    setViewableImages([...viewableImages, paintings[0]])
+    setViewableImages([paintings[0]])
   } catch {
     setHasError(true)
     setErrorMessage('Something went wrong!')
@@ -128,8 +128,17 @@ const setInitialStates = async () => {
     }
   }
 
+  const startNewGame = () => {
+    setGuessCount(0)
+    setGameOver(false)
+    setGuesses([])
+    setViewableImages([])
+    setCorrectGuess(false)
+    newGame()
+  }
+
   useEffect(() => {
-    setInitialStates()
+    newGame()
   }, [])
 
   
@@ -149,6 +158,7 @@ const setInitialStates = async () => {
           images={images} 
           titles={titles}
           playGame={playGame}
+          newGame={startNewGame}
           />
         )}} />
         <Route path='/About' component={ About } />
