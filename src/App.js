@@ -22,6 +22,7 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [winCount, setWinCount] = useState(0);
   const [lossCount, setLossCount] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getRandomIndex = (array) => {
     return Math.floor(Math.random() * array.length)
@@ -95,6 +96,7 @@ const newGame = async () => {
     setArtistName(artist)
     setArtistBio(bio)
     setViewableImages([paintings[0]])
+    setIsLoading(false)
   } catch {
     setHasError(true)
     setErrorMessage('Something went wrong!')
@@ -129,6 +131,7 @@ const newGame = async () => {
   }
 
   const startNewGame = () => {
+    setIsLoading(true)
     setGuessCount(0)
     setGameOver(false)
     setGuesses([])
@@ -147,19 +150,21 @@ const newGame = async () => {
       <div className='App'>
         <Nav />
         <Route exact path='/' render={() => {
-          return (<Home 
-          hasError={hasError}
-          gameOver={gameOver}
-          errorMessage={errorMessage}
-          correctGuess={correctGuess}
-          viewableImages={viewableImages}
-          artistName={artistName}
-          artistBio={artistBio}
-          images={images} 
-          titles={titles}
-          playGame={playGame}
-          newGame={startNewGame}
-          />
+          return ( 
+            <Home 
+            isLoading={isLoading}
+            hasError={hasError}
+            gameOver={gameOver}
+            errorMessage={errorMessage}
+            correctGuess={correctGuess}
+            viewableImages={viewableImages}
+            artistName={artistName}
+            artistBio={artistBio}
+            images={images} 
+            titles={titles}
+            playGame={playGame}
+            newGame={startNewGame}
+            />
         )}} />
         <Route path='/About' component={ About } />
         <Route path='/GameStats' render={() => {
