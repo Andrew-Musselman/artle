@@ -1,4 +1,5 @@
 import React, { useState }from 'react';
+import PropTypes from 'prop-types';
 
 const GuessForm = ({ playGame }) => {
     const [guess, setGuess] = useState('')
@@ -24,3 +25,7 @@ const GuessForm = ({ playGame }) => {
 }
 
 export default GuessForm;
+
+GuessForm.propTypes = {
+    playGame: PropTypes.func.isRequired
+}
