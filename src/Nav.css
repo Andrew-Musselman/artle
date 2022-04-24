@@ -1,0 +1,19 @@
+nav {
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: baseline;
+    margin-bottom: 5vh;
+    background: rgb(64, 153, 153);
+  }
+  
+  a {
+    text-decoration: none;
+    color: #fcf1e0e0;
+  }
+  
+  a :hover {
+    transition: 0.3s;
+    transform: scale(1.5);
+  }
