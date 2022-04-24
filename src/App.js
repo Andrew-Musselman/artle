@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import GameScreen from './GameScreen';
-import GuessForm from './GuessForm';
-import EndGameScreen from './EndGameScreen';
+import { Route } from 'react-router-dom';
+import Home from './Home';
+import About from './About';
+import GameStats from './GameStats';
+import Nav from './Nav';
 import getData from './apiCall';
 import './App.css';
 
@@ -120,10 +122,22 @@ const setInitialStates = async () => {
   
     return (
       <div className='App'>
-        {hasError && <h2 className='error'>{errorMessage}</h2>}
-        {!correctGuess && !gameOver && <GameScreen images={viewableImages} /> } 
-        {gameOver && <EndGameScreen correctGuess={correctGuess} artistName={artistName} artistBio={artistBio} images={images}/>}
-        {!hasError &&<GuessForm playGame={playGame} /> }
+        <Nav />
+        <Route exact path='/' render={() => {
+          return (<Home 
+          hasError={hasError}
+          gameOver={gameOver}
+          errorMessage={errorMessage}
+          correctGuess={correctGuess}
+          viewableImages={viewableImages}
+          artistName={artistName}
+          artistBio={artistBio}
+          images={images} 
+          playGame={playGame}
+          />
+        )}} />
+        <Route path='/About' component={ About } />
+        <Route path='/GameStats' render={() => <GameStats />} />
       </div>
     );
   
