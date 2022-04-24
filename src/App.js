@@ -5,6 +5,7 @@ import About from './About';
 import GameStats from './GameStats';
 import Nav from './Nav';
 import getData from './apiCall';
+import artists from './artistsData';
 import './App.css';
 
 const App = () => {
@@ -22,9 +23,19 @@ const App = () => {
   const [winCount, setWinCount] = useState(0);
   const [lossCount, setLossCount] = useState(0);
 
+  const getRandomIndex = (array) => {
+    return Math.floor(Math.random() * array.length)
+  }
+
+  const getRandomArtist = () => {
+    let artistIndex = getRandomIndex(artists)
+    return artists[artistIndex]
+  }
 
   const getObjects = async () => {
-    const artistPath = 'https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&q=Renoir'
+    let artistQuery = getRandomArtist()
+    console.log(artistQuery)
+    const artistPath = `https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&q=${artistQuery}`
     let response;
     try {
       response = await getData(artistPath);
