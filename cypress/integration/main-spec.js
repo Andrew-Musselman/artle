@@ -165,6 +165,6 @@ describe('Main', () => {
             ok: false
         })
         cy.visit('http://localhost:3000/')
-        .get('h2').should('contain', 'Something went wrong!')
+        .get('h2[class="error"]').should('contain', 'Something went wrong!')
     })
 })
