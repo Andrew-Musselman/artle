@@ -34,7 +34,6 @@ const App = () => {
 
   const getObjects = async () => {
     let artistQuery = getRandomArtist()
-    console.log(artistQuery)
     const artistPath = `https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&q=${artistQuery}`
     let response;
     try {
