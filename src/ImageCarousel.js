@@ -4,8 +4,8 @@ import './ImageCarousel.css';
 
 const ImageCarousel = ({ images, titles }) => {
 
-    const imagesOne = images.map(image => {
-        return <Image image={image}  />
+    const imagesOne = images.map((image, i) => {
+        return <Image image={image} alt={titles[i]}  />
     })
 
     const [index, setIndex] = useState(0);
@@ -27,6 +27,10 @@ const ImageCarousel = ({ images, titles }) => {
             </div>
           </div>
       )
+}
+
+ImageCarousel.defaultProps = {
+  titles: ['image-title','image-title','image-title','image-title','image-title','image-title']
 }
 
 export default ImageCarousel;
