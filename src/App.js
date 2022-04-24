@@ -133,6 +133,7 @@ const setInitialStates = async () => {
           artistName={artistName}
           artistBio={artistBio}
           images={images} 
+          titles={titles}
           playGame={playGame}
           />
         )}} />
