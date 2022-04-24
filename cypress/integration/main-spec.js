@@ -157,14 +157,14 @@ describe('Main', () => {
     })
     it('As a user, I should see an error message if there is an error with the network request', () => {
         cy.intercept('GET', 'https://collectionapi.metmuseum.org/public/collection/v1/search*', {
-            statusCode: 500,
-            ok: false
+            statusCode: 200,
+            fixture: 'objectIds.json'
         })
         cy.intercept('GET','https://collectionapi.metmuseum.org/public/collection/v1/objects/*', {
             statusCode: 500,
             ok: false
         })
         cy.visit('http://localhost:3000/')
-        .get('h2').should('contain', 'There\'s a snake in my boot')
+        .get('h2').should('contain', 'Something went wrong!')
     })
 })
