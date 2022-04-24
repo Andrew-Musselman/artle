@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import ArtistCard from './ArtistCard';
 
 const EndGameMessage = ({ correctGuess }) =>  {
     return (
@@ -9,3 +11,7 @@ const EndGameMessage = ({ correctGuess }) =>  {
 }
 
 export default EndGameMessage
+
+ArtistCard.propTypes = {
+    correctGuess: PropTypes.bool.isRequired
+}

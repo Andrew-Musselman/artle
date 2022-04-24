@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import GameScreen from './GameScreen';
-import GuessForm from './GuessForm';
-import EndGameScreen from './EndGameScreen';
+import { Route } from 'react-router-dom';
+import Home from './Home';
+import About from './About';
+import GameStats from './GameStats';
+import Nav from './Nav';
 import getData from './apiCall';
+import artists from './artistsData';
 import './App.css';
 
 const App = () => {
@@ -17,10 +20,21 @@ const App = () => {
   const [viewableImages, setViewableImages] = useState([]);
   const [hasError, setHasError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [winCount, setWinCount] = useState(0);
+  const [lossCount, setLossCount] = useState(0);
 
+  const getRandomIndex = (array) => {
+    return Math.floor(Math.random() * array.length)
+  }
+
+  const getRandomArtist = () => {
+    let artistIndex = getRandomIndex(artists)
+    return artists[artistIndex]
+  }
 
   const getObjects = async () => {
-    const artistPath = 'https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&q=Renoir'
+    let artistQuery = getRandomArtist()
+    const artistPath = `https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&q=${artistQuery}`
     let response;
     try {
       response = await getData(artistPath);
@@ -65,7 +79,7 @@ const App = () => {
     }
     
   }
-const setInitialStates = async () => {
+const newGame = async () => {
   let paintings;
   let names;
   let artist;
@@ -80,7 +94,7 @@ const setInitialStates = async () => {
     setTitles(names)
     setArtistName(artist)
     setArtistBio(bio)
-    setViewableImages([...viewableImages, paintings[0]])
+    setViewableImages([paintings[0]])
   } catch {
     setHasError(true)
     setErrorMessage('Something went wrong!')
@@ -95,6 +109,7 @@ const setInitialStates = async () => {
         guess === artistName.toLowerCase() || guess === artistNames[0].toLowerCase() || guess === artistNames[1].toLowerCase()) {
       setCorrectGuess(true)
       setGameOver(true)
+      setWinCount((prevCount) => prevCount + 1)
     } else {
       return 
     }
@@ -108,22 +123,49 @@ const setInitialStates = async () => {
     } else if (guessCount === 5 && !correctGuess) {
       checkGuess(guess)
       setGuessCount((prevCount) => prevCount + 1)
+      setLossCount((prevCount) => prevCount + 1)
       setGameOver(true)
     }
   }
 
+  const startNewGame = () => {
+    setGuessCount(0)
+    setGameOver(false)
+    setGuesses([])
+    setViewableImages([])
+    setCorrectGuess(false)
+    newGame()
+  }
+
   useEffect(() => {
-    setInitialStates()
+    newGame()
   }, [])
 
   
   
     return (
       <div className='App'>
-        {hasError && <h2 className='error'>{errorMessage}</h2>}
-        {!correctGuess && !gameOver && <GameScreen images={viewableImages} /> } 
-        {gameOver && <EndGameScreen correctGuess={correctGuess} artistName={artistName} artistBio={artistBio} images={images}/>}
-        {!hasError &&<GuessForm playGame={playGame} /> }
+        <Nav />
+        <Route exact path='/' render={() => {
+          return (<Home 
+          hasError={hasError}
+          gameOver={gameOver}
+          errorMessage={errorMessage}
+          correctGuess={correctGuess}
+          viewableImages={viewableImages}
+          artistName={artistName}
+          artistBio={artistBio}
+          images={images} 
+          titles={titles}
+          playGame={playGame}
+          newGame={startNewGame}
+          />
+        )}} />
+        <Route path='/About' component={ About } />
+        <Route path='/GameStats' render={() => {
+          return <GameStats winCount={winCount} lossCount={lossCount} /> 
+          }
+        } />
       </div>
     );
   
