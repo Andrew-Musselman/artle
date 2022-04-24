@@ -19,6 +19,8 @@ const App = () => {
   const [viewableImages, setViewableImages] = useState([]);
   const [hasError, setHasError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [winCount, setWinCount] = useState(0);
+  const [lossCount, setLossCount] = useState(0);
 
 
   const getObjects = async () => {
@@ -97,6 +99,7 @@ const setInitialStates = async () => {
         guess === artistName.toLowerCase() || guess === artistNames[0].toLowerCase() || guess === artistNames[1].toLowerCase()) {
       setCorrectGuess(true)
       setGameOver(true)
+      setWinCount((prevCount) => prevCount + 1)
     } else {
       return 
     }
@@ -110,6 +113,7 @@ const setInitialStates = async () => {
     } else if (guessCount === 5 && !correctGuess) {
       checkGuess(guess)
       setGuessCount((prevCount) => prevCount + 1)
+      setLossCount((prevCount) => prevCount + 1)
       setGameOver(true)
     }
   }
@@ -138,7 +142,10 @@ const setInitialStates = async () => {
           />
         )}} />
         <Route path='/About' component={ About } />
-        <Route path='/GameStats' render={() => <GameStats />} />
+        <Route path='/GameStats' render={() => {
+          return <GameStats winCount={winCount} lossCount={lossCount} /> 
+          }
+        } />
       </div>
     );
   
